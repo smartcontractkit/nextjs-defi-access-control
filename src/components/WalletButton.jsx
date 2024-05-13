@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { ConnectWalletClient, ConnectPublicClient } from "../lib/client";
 import { formatEther } from "viem";
+import { sepolia } from "viem/chains";
 import Image from "next/image";
 
 export default function WalletButton() {
@@ -19,7 +20,7 @@ export default function WalletButton() {
 
       // Retrieve the wallet address using the Wallet Client
       const [address] = await walletClient.requestAddresses();
-      // const [address] = await walletClient.getAddresses();
+      await walletClient.switchChain({ id: sepolia.id });
 
       // Retrieve the balance of the address using the Public Client
       const balance = formatEther(await publicClient.getBalance({ address }));
