@@ -36,29 +36,25 @@ export default function WalletButton() {
   }
 
   return (
-    <>
+    <div>
       {/* Render the Status component with the address and balance */}
       <Status address={address} balance={balance} />
 
       {/* Render the Connect Wallet button */}
-      {/* only render if !address */}
-
-      {!address && (
-        <button
-          className="px-8 py-2 rounded-md bg-slate-400 flex flex-row items-center justify-center border border-[#1e2124] hover:border hover:border-indigo-600 shadow-md shadow-indigo-500/10"
-          onClick={handleClick}
-        >
-          {/* Display the MetaMask Fox image */}
-          <Image
-            src="https://upload.wikimedia.org/wikipedia/commons/3/36/MetaMask_Fox.svg"
-            alt="MetaMask Fox"
-            width={25}
-            height={25}
-          />
-          <h1 className="mx-auto">Connect Wallet (Balance)</h1>
-        </button>
-      )}
-    </>
+      <button
+        className={`${balance && 'hidden'} px-8 py-2 rounded-md bg-slate-400 flex flex-row items-center justify-center border border-[#1e2124] hover:border hover:border-indigo-600 shadow-md shadow-indigo-500/10`}
+        onClick={handleClick}
+      >
+        {/* Display the MetaMask Fox image */}
+        <Image
+          src="https://upload.wikimedia.org/wikipedia/commons/3/36/MetaMask_Fox.svg"
+          alt="MetaMask Fox"
+          width={25}
+          height={25}
+        />
+        <h1 className="mx-auto">Connect Wallet (Balance)</h1>
+      </button>
+    </div>
   );
 }
 

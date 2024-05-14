@@ -7,6 +7,7 @@ import { sepolia } from "viem/chains";
 import Image from "next/image";
 import { NFT_ABI } from "../constants/abis"
 import React from "react";
+import { NFT_ADDRESS } from "../constants/addresses";
 
 export default function WalletButton() {
   // State variables to store the wallet address and balance
@@ -22,7 +23,7 @@ export default function WalletButton() {
 
       const nftContract = getContract({
         // The contract address of the NFT contract
-        address: "0x2a33e885f98f6b501c5cbceb16f28d7ce2619308",
+        address: NFT_ADDRESS,
         abi: NFT_ABI,
         // @ts-ignore
         client: publicClient,
@@ -109,7 +110,7 @@ function Content({ address, owner, contractOwner }) {
       const publicClient = ConnectPublicClient();
       const nftContract = getContract({
         // The contract address of the NFT contract
-        address: "0x2a33e885f98f6b501c5cbceb16f28d7ce2619308",
+        address: NFT_ADDRESS,
         abi: NFT_ABI,
         // @ts-ignore
         client: walletClient,
