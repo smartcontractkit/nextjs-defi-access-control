@@ -10,6 +10,7 @@ import { formatEther, getContract } from "viem"
 import { sepolia } from "viem/chains"
 import { NFT_ADDRESS } from "./constants/addresses";
 import { NFT_ABI } from "./constants/abis";
+import MintButton from "./components/MintButton";
 
 export default async function Home() {
   const [showMintButton, setShowMintButton] = useState(false);
@@ -116,6 +117,7 @@ export default async function Home() {
       <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm">
         <WalletButton />
       </div>
+        <MintButton />
     </main>
   )
 }
