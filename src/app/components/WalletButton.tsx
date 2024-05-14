@@ -1,15 +1,16 @@
 "use client";
 
-import { useState } from "react";
-import { ConnectWalletClient, ConnectPublicClient } from "../lib/client";
-import { formatEther } from "viem";
-import { sepolia } from "viem/chains";
-import Image from "next/image";
+import { useState } from "react"
+import { ConnectWalletClient, ConnectPublicClient } from "../../lib/client"
+import { formatEther } from "viem"
+import { sepolia } from "viem/chains"
+import Image from "next/image"
+import React from "react";
 
 export default function WalletButton() {
   // State variables to store the wallet address and balance
-  const [address, setAddress] = useState(null);
-  const [balance, setBalance] = useState(null);
+  const [address, setAddress] = useState('');
+  const [balance, setBalance] = useState('');
 
   // Function to handle the button click event
   async function handleClick() {
