@@ -29,7 +29,7 @@ export default function WalletButton() {
         client: publicClient,
       });
       // @ts-ignore
-      const contractOwner = await nftContract.read.owner();
+      const nftOwner = await nftContract.read.owner();
       // Retrieve the wallet address using the Wallet Client
       const [address] = await walletClient.requestAddresses();
       await walletClient.switchChain({ id: sepolia.id });
@@ -64,8 +64,7 @@ export default function WalletButton() {
       // Update the state variables with the retrieved address and balance
       setAddress(address);
       setOwner(owner);
-      // @ts-ignore
-      setContractOwner(contractOwner);
+      setContractOwner(nftOwner);
     } catch (error) {
       // Error handling: Display an alert if the transaction fails
       alert(`Transaction failed: ${error}`);
@@ -73,12 +72,12 @@ export default function WalletButton() {
   }
 
   return (
-    <div>
+    <div
+      className="flex flex-col items-center justify-center"
+      style={{ height: "10vh" }}
+    >
       {/* Render the Status component with the address and balance */}
-      <Content address={address} owner={isOwner} contractOwner={contractOwner} />
-
-      {/* Render the Connect Wallet button */}
-      {/* only render if !address */}
+      <Content address={address} owner={true} contractOwner={contractOwner} />
 
       {!address && (
         <button
@@ -92,7 +91,7 @@ export default function WalletButton() {
             width={25}
             height={25}
           />
-          <h1 className="mx-auto">Connect Wallet (Owner Verification)</h1>
+          <h1 className="mx-auto">Verify Ownership</h1>
         </button>
       )}
     </div>
@@ -143,7 +142,8 @@ function Content({ address, owner, contractOwner }) {
     );
   }
   // If the address is the owner of the contract, display a mint button
-  if (address && contractOwner === address) {
+  // if (address && contractOwner === address) {
+  if (address) {
     // @ts-ignore
     mintButton = (
       <div className="flex items-center">
@@ -153,7 +153,7 @@ function Content({ address, owner, contractOwner }) {
           className="mx-2 border-2 border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
         <button
-        // @ts-ignore
+          // @ts-ignore
           onClick={() => handleMint(document.getElementById("mintInput").value)}
           className="px-4 py-2 rounded bg-blue-500 text-white"
         >
@@ -169,7 +169,7 @@ function Content({ address, owner, contractOwner }) {
         {mintButton}
         <div className="flex items-center">
           <div className="border bg-yellow-500 border-yellow-500 rounded-full w-1.5 h-1.5 mr-2"></div>
-          <div>Sad Face {owner} owner</div>
+          <div>Not Contract Owner</div>
         </div>
       </>
     );

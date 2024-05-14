@@ -1,1 +1,2 @@
-export const NFT_ADDRESS = '0x2a33e885f98f6b501c5cbceb16f28d7ce2619308'
+// export const NFT_ADDRESS = ''
+export const NFT_ADDRESS = '0x6aD58EC0A2b1E75deF932aB592FEe571aD527110' // 0x2a33e885f98f6b501c5cbceb16f28d7ce2619308

@@ -17,7 +17,7 @@ export async function ConnectWalletClient() {
   }
 
   // Wallet Client //
-  // creates: wallet client using the Sepolia chain and the custom transport
+  // creates: wallet client using the Sepolia chain and the custom transport.
   const walletClient = createWalletClient({
     chain: sepolia,
     transport: transport,
@@ -28,8 +28,8 @@ export async function ConnectWalletClient() {
 }
 
 export function ConnectPublicClient() {
-  // Declare a Public Client
-  // This creates a public client using the Sepolia chain and an HTTP transport
+  // declares: Public Client
+  // creates: public client using the Sepolia chain and an HTTP transport.
   const publicClient = createPublicClient({
     chain: sepolia,
     transport: http("https://rpc.sepolia.org"),
