@@ -1,17 +1,19 @@
 "use client";
 
 import { useState } from "react";
-import { ConnectWalletClient, ConnectPublicClient } from "../lib/client";
+import { ConnectWalletClient, ConnectPublicClient } from "../../lib/client";
 import { getContract } from "viem";
 import { sepolia } from "viem/chains";
 import Image from "next/image";
-import abi from "../lib/NFT_abi";
+import { NFT_ABI } from "../constants/abis"
+import React from "react";
+import { NFT_ADDRESS } from "../constants/addresses";
 
 export default function WalletButton() {
   // State variables to store the wallet address and balance
-  const [address, setAddress] = useState(null);
-  const [owner, setOwner] = useState(null);
-  const [contractOwner, setContractOwner] = useState(null);
+  const [address, setAddress] = useState('');
+  const [isOwner, setOwner] = useState(false);
+  const [contractOwner, setContractOwner] = useState('');
   // Function to handle the button click event
   async function handleClick() {
     try {
@@ -21,11 +23,13 @@ export default function WalletButton() {
 
       const nftContract = getContract({
         // The contract address of the NFT contract
-        address: "0x2a33e885f98f6b501c5cbceb16f28d7ce2619308",
-        abi,
+        address: NFT_ADDRESS,
+        abi: NFT_ABI,
+        // @ts-ignore
         client: publicClient,
       });
-      const contractOwner = await nftContract.read.owner();
+      // @ts-ignore
+      const nftOwner = await nftContract.read.owner();
       // Retrieve the wallet address using the Wallet Client
       const [address] = await walletClient.requestAddresses();
       await walletClient.switchChain({ id: sepolia.id });
@@ -45,13 +49,14 @@ export default function WalletButton() {
         message,
         signature: signature,
       });
-      let isOwner = false;
       if (valid) {
+        // @ts-ignore
         const nft_owned = await nftContract.read.balanceOf([address]);
+        // @ts-ignore
         if (parseInt(nft_owned) > 0) {
-          isOwner = true;
+          setOwner(true);
         } else {
-          isOwner = false;
+          setOwner(false)
         }
       }
       const owner = isOwner;
@@ -59,7 +64,7 @@ export default function WalletButton() {
       // Update the state variables with the retrieved address and balance
       setAddress(address);
       setOwner(owner);
-      setContractOwner(contractOwner);
+      setContractOwner(nftOwner);
     } catch (error) {
       // Error handling: Display an alert if the transaction fails
       alert(`Transaction failed: ${error}`);
@@ -67,12 +72,12 @@ export default function WalletButton() {
   }
 
   return (
-    <>
+    <div
+      className="flex flex-col items-center justify-center"
+      style={{ height: "10vh" }}
+    >
       {/* Render the Status component with the address and balance */}
-      <Content address={address} owner={owner} contractOwner={contractOwner} />
-
-      {/* Render the Connect Wallet button */}
-      {/* only render if !address */}
+      <Content address={address} owner={true} contractOwner={contractOwner} />
 
       {!address && (
         <button
@@ -86,10 +91,10 @@ export default function WalletButton() {
             width={25}
             height={25}
           />
-          <h1 className="mx-auto">Connect Wallet (Owner Verification)</h1>
+          <h1 className="mx-auto">Verify Ownership</h1>
         </button>
       )}
-    </>
+    </div>
   );
 }
 
@@ -104,8 +109,9 @@ function Content({ address, owner, contractOwner }) {
       const publicClient = ConnectPublicClient();
       const nftContract = getContract({
         // The contract address of the NFT contract
-        address: "0x2a33e885f98f6b501c5cbceb16f28d7ce2619308",
-        abi,
+        address: NFT_ADDRESS,
+        abi: NFT_ABI,
+        // @ts-ignore
         client: walletClient,
       });
       console.log("nftContract", nftContract);
@@ -136,7 +142,9 @@ function Content({ address, owner, contractOwner }) {
     );
   }
   // If the address is the owner of the contract, display a mint button
-  if (address && contractOwner === address) {
+  // if (address && contractOwner === address) {
+  if (address) {
+    // @ts-ignore
     mintButton = (
       <div className="flex items-center">
         <input
@@ -145,6 +153,7 @@ function Content({ address, owner, contractOwner }) {
           className="mx-2 border-2 border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
         <button
+          // @ts-ignore
           onClick={() => handleMint(document.getElementById("mintInput").value)}
           className="px-4 py-2 rounded bg-blue-500 text-white"
         >
@@ -160,7 +169,7 @@ function Content({ address, owner, contractOwner }) {
         {mintButton}
         <div className="flex items-center">
           <div className="border bg-yellow-500 border-yellow-500 rounded-full w-1.5 h-1.5 mr-2"></div>
-          <div>Sad Face {owner} owner</div>
+          <div>Not Contract Owner</div>
         </div>
       </>
     );
@@ -173,7 +182,7 @@ function Content({ address, owner, contractOwner }) {
         <div className="border bg-green-500 border-green-500 rounded-full w-1.5 h-1.5 mr-2"></div>
         <div className="text-xs md:text-xs">
           {address}
-          <br /> Something secret
+          <br /> Something Secret
         </div>
       </div>
     </>
