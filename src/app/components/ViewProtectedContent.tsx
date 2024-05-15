@@ -118,11 +118,11 @@ function Content({ address, owner, contractOwner }) {
       // Retrieve the wallet address using the Wallet Client
       const [address] = await walletClient.requestAddresses();
       await walletClient.switchChain({ id: sepolia.id });
-      // run safeMint
+      // run grantAccess
       const { request } = await publicClient.simulateContract({
         address: nftContract.address,
         abi: nftContract.abi,
-        functionName: "safeMint",
+        functionName: "grantAccess",
         args: [toAddress],
         account: address,
       });

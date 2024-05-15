@@ -369,7 +369,7 @@ export const NFT_ABI = [
           type: "address",
         },
       ],
-      name: "safeMint",
+      name: "grantAccess",
       outputs: [],
       stateMutability: "nonpayable",
       type: "function",
