@@ -2,7 +2,6 @@
 
 import Image from "next/image"
 import WalletButton from "./components/WalletButton"
-import ViewProtectedContent from "./components/ViewProtectedContent"
 // import MintButton from "./components/MintButton"
 import { ConnectPublicClient, ConnectWalletClient } from "@/lib/client";
 import { useState } from "react";
