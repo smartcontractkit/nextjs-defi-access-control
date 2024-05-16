@@ -18,7 +18,7 @@ export default function MintButton() {
 
     async function handleConnect() {
         try {
-            // Instantiate a Wallet Client and a Public Client
+            // instantiates: a Wallet Client and a Public Client
             const walletClient = await ConnectWalletClient();
             const blockchainClient = ConnectBlockchain();
 
@@ -121,7 +121,6 @@ export default function MintButton() {
                             </Link>
                         </div>
                     </div>
-
                 )}
             </p>
         </div>
