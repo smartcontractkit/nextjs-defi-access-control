@@ -1,15 +1,14 @@
-"use client";
+"use client"
 
 import Image from "next/image"
-import WalletButton from "./components/WalletButton"
-// import MintButton from "./components/MintButton"
-import { ConnectPublicClient, ConnectWalletClient } from "@/lib/client";
-import { useState } from "react";
+import { ConnectPublicClient } from "@/lib/PublicClient"
+import { ConnectWalletClient } from "@/lib/WalletClient"
+import { useState } from "react"
 import { formatEther, getContract } from "viem"
 import { sepolia } from "viem/chains"
-import { NFT_ADDRESS } from "./constants/addresses";
-import { NFT_ABI } from "./constants/abis";
-import MintButton from "./components/MintButton";
+import { NFT_ADDRESS } from "./constants/addresses"
+import { NFT_ABI } from "./constants/abis"
+import MintButton from "./components/MintButton"
 
 export default async function Home() {
   const [showMintButton, setShowMintButton] = useState(false);

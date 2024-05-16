@@ -1,7 +1,8 @@
-"use client";
+"use client"
 
 import { useState } from "react"
-import { ConnectWalletClient, ConnectPublicClient } from "../../lib/client"
+import { ConnectPublicClient } from "@/lib/PublicClient"
+import { ConnectWalletClient } from "@/lib/WalletClient"
 import { formatEther } from "viem"
 import { sepolia } from "viem/chains"
 import Image from "next/image"

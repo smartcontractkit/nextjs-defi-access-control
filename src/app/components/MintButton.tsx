@@ -1,13 +1,14 @@
 "use client";
 
 import { useState } from "react"
-import { ConnectWalletClient, ConnectPublicClient } from "../../lib/client"
+import { ConnectPublicClient } from "@/lib/PublicClient"
+import { ConnectWalletClient } from "@/lib/WalletClient"
 import { formatEther, getContract } from "viem"
 import { sepolia } from "viem/chains"
 import Image from "next/image"
 import React from "react";
-import { NFT_ADDRESS } from "../constants/addresses";
-import { NFT_ABI } from "../constants/abis";
+import { NFT_ADDRESS } from "../constants/addresses"
+import { NFT_ABI } from "../constants/abis"
 
 export default function MintButton() {
     // State variables to store the wallet address and balance
