@@ -3,7 +3,7 @@
 import { useState } from "react"
 import { ConnectBlockchain } from "@/lib/BlockchainClient"
 import { ConnectWalletClient } from "@/lib/WalletClient"
-import { formatEther, getContract, parseAbi } from "viem"
+import { Chain, formatEther, getContract, parseAbi } from "viem"
 import { sepolia } from "viem/chains"
 import Image from "next/image"
 import React from "react";
@@ -53,7 +53,6 @@ export default function MintButton() {
             console.log("toAddress", toAddress);
             // Instantiate a Wallet Client and a Public Client
             const walletClient = await ConnectWalletClient();
-            const blockchainClient = ConnectBlockchain();
             const nftContract = getContract({
                 // The contract address of the NFT contract
                 address: NFT_ADDRESS,
@@ -66,14 +65,17 @@ export default function MintButton() {
             const [address] = await walletClient.requestAddresses();
             await walletClient.switchChain({ id: sepolia.id });
             // runs: grantAccess(address to)
-            const { request } = await blockchainClient.simulateContract({
+            const hash = await walletClient.writeContract({
+                account: address,
                 address: nftContract.address,
                 abi: nftContract.abi,
                 functionName: "grantAccess",
                 args: [toAddress],
-                account: address,
+                chain: sepolia
             });
-            await walletClient.writeContract(request);
+
+            await hash
+
         } catch (error) {
             // Error handling: Display an alert if the transaction fails
             alert(`Transaction Failed: ${error}`);
