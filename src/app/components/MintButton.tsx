@@ -1,12 +1,13 @@
-"use client";
+"use client"
 
-import { useState } from "react"
+import React, { useState } from "react"
+import Image from "next/image"
+import Link from "next/link"
+import { getContract } from "viem"
+import { sepolia } from "viem/chains"
+
 import { ConnectBlockchain } from "@/lib/BlockchainClient"
 import { ConnectWalletClient } from "@/lib/WalletClient"
-import { Chain, formatEther, getContract, parseAbi } from "viem"
-import { sepolia } from "viem/chains"
-import Image from "next/image"
-import React from "react";
 import { NFT_ADDRESS } from "../constants/addresses"
 import { NFT_ABI } from "../constants/abis"
 
@@ -90,17 +91,9 @@ export default function MintButton() {
                         className={`px-8 py-2 rounded-md bg-slate-400 flex flex-row items-center justify-center border border-[#1e2124] hover:border hover:border-indigo-600 shadow-md shadow-indigo-500/10`}
                         onClick={handleConnect}
                     >
-                        {/* Display the MetaMask Fox image */}
-                        <Image
-                            src="https://upload.wikimedia.org/wikipedia/commons/3/36/MetaMask_Fox.svg"
-                            alt="MetaMask Fox"
-                            width={25}
-                            height={25}
-                        />
                         <h1
                             className="mx-auto"
                         >
-                            {/* Connect Wallet */}
                             {`Connect Wallet`}
                         </h1>
                     </button>
@@ -113,10 +106,19 @@ export default function MintButton() {
                             </div>
                             <button
                                 onClick={() => handleMint(walletAddress)}
-                                className="px-8 py-2 rounded bg-blue-500 text-white"
+                                className="px-8 py-2 rounded bg-purple-500 text-white"
                             >
-                                Mint NFT
+                                Grant Access
                             </button>
+                            <Link
+                                href={"https://remix.ethereum.org/#url=https://github.com/BunsDev/nextjs-defi-access-control/blob/develop/src/lib/OpenAccess.sol&lang=en&optimize=false&runs=200&evmVersion=null&version=soljson-v0.8.25+commit.b61c2a91.js"}
+                                target="_blank"
+                                className="px-8 py-1 rounded bg-blue-500 text-white"
+                            >
+                                <button>
+                                    Open Code in Remix (Ethereum IDE)
+                                </button>
+                            </Link>
                         </div>
                     </div>
 
