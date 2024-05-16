@@ -3,7 +3,7 @@
 import { useState } from "react"
 import { ConnectBlockchain } from "@/lib/BlockchainClient"
 import { ConnectWalletClient } from "@/lib/WalletClient"
-import { formatEther, getContract } from "viem"
+import { formatEther, getContract, parseAbi } from "viem"
 import { sepolia } from "viem/chains"
 import Image from "next/image"
 import React from "react";
@@ -12,8 +12,8 @@ import { NFT_ABI } from "../constants/abis"
 
 export default function MintButton() {
     // State variables to store the wallet address and balance
-    const [address, setAddress] = useState('')
-    const [balance, setBalance] = useState('')
+    const [walletAddress, setWalletAddress] = useState('')
+    const [balance, setBalance] = useState('0')
 
     async function handleConnect() {
         try {
@@ -32,23 +32,23 @@ export default function MintButton() {
             //   const nftOwner = await nftContract.read.owner();
             // Retrieve the wallet address using the Wallet Client
             const [address] = await walletClient.requestAddresses();
-            await walletClient.switchChain({ id: sepolia.id });
+            // updates: the state variables with the retrieved address and balance.
+            setWalletAddress(address);
 
+            await walletClient.switchChain({ id: sepolia.id });
             // @ts-ignore
             const nftBalance = await nftContract.read.balanceOf([address]);
             console.log("nftBalance", nftBalance);
 
-            setBalance(nftBalance.toString() ?? '0');
+            setBalance(parseInt(nftBalance)?.toString() ?? '0');
 
-            // updates: the state variables with the retrieved address and balance.
-            setAddress(address);
         } catch (error) {
             // Error handling: Display an alert if the transaction fails
             alert(`Transaction Failed: ${error}`);
         }
     }
 
-    async function handleMint(toAddress) {
+    async function handleMint(toAddress: string) {
         try {
             console.log("toAddress", toAddress);
             // Instantiate a Wallet Client and a Public Client
@@ -65,7 +65,7 @@ export default function MintButton() {
             // Retrieve the wallet address using the Wallet Client
             const [address] = await walletClient.requestAddresses();
             await walletClient.switchChain({ id: sepolia.id });
-            // run grantAccess
+            // runs: grantAccess(address to)
             const { request } = await blockchainClient.simulateContract({
                 address: nftContract.address,
                 abi: nftContract.abi,
@@ -83,7 +83,7 @@ export default function MintButton() {
     return (
         <div>
             <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-                {!address ? (
+                {!walletAddress ? (
                     <button
                         className={`px-8 py-2 rounded-md bg-slate-400 flex flex-row items-center justify-center border border-[#1e2124] hover:border hover:border-indigo-600 shadow-md shadow-indigo-500/10`}
                         onClick={handleConnect}
@@ -107,15 +107,10 @@ export default function MintButton() {
 
                         <div className="grid gap-4 items-center">
                             <div className="text-xs md:text-xs">
-                                {address} <br /> Balance: {balance}
+                                {walletAddress} <br /> Balance: {balance}
                             </div>
-                            {/* <input
-                        type="text"
-                        id="mintInput"
-                        className="mx-2 border-2 border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" 
-                    /> */}
                             <button
-                                onClick={() => handleMint(address)}
+                                onClick={() => handleMint(walletAddress)}
                                 className="px-8 py-2 rounded bg-blue-500 text-white"
                             >
                                 Mint NFT
