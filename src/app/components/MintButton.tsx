@@ -14,9 +14,8 @@ export default function MintButton() {
     // State variables to store the wallet address and balance
     const [address, setAddress] = useState('')
     const [balance, setBalance] = useState('')
-    const [nftOwner, setOwner] = useState(false)
 
-    async function handleClick() {
+    async function handleConnect() {
         try {
             // Instantiate a Wallet Client and a Public Client
             const walletClient = await ConnectWalletClient();
@@ -35,38 +34,17 @@ export default function MintButton() {
             const [address] = await walletClient.requestAddresses();
             await walletClient.switchChain({ id: sepolia.id });
 
-            // Generate a salt
-            const salt = Math.floor(Math.random() * 1000000);
+            // @ts-ignore
+            const nftBalance = await nftContract.read.balanceOf([address]);
+            console.log("nftBalance", nftBalance);
 
-            // Concatenate the salt to the original message
-            const message = "Hello, World!\nsalt: " + salt;
+            setBalance(nftBalance.toString() ?? '0');
 
-            const signature = await walletClient.signMessage({
-                account: address,
-                message,
-            });
-            const valid = await blockchainClient.verifyMessage({
-                address,
-                message,
-                signature: signature,
-            });
-            if (valid) {
-                // @ts-ignore
-                const nft_owned = await nftContract.read.balanceOf([address]);
-                // @ts-ignore
-                if (parseInt(nft_owned) > 0) {
-                    setOwner(true);
-                    setBalance(nft_owned.toString())
-                } else {
-                    setOwner(false)
-                    setBalance('0')
-                }
-            }
-            // Update the state variables with the retrieved address and balance
+            // updates: the state variables with the retrieved address and balance.
             setAddress(address);
         } catch (error) {
             // Error handling: Display an alert if the transaction fails
-            alert(`Transaction failed: ${error}`);
+            alert(`Transaction Failed: ${error}`);
         }
     }
 
@@ -98,46 +76,55 @@ export default function MintButton() {
             await walletClient.writeContract(request);
         } catch (error) {
             // Error handling: Display an alert if the transaction fails
-            alert(`Transaction failed: ${error}`);
+            alert(`Transaction Failed: ${error}`);
         }
     }
 
     return (
         <div>
-            {!address ? (
-                <button
-                    className={`px-8 py-2 rounded-md bg-slate-400 flex flex-row items-center justify-center border border-[#1e2124] hover:border hover:border-indigo-600 shadow-md shadow-indigo-500/10`}
-                    onClick={handleClick}
-                >
-                    {/* Display the MetaMask Fox image */}
-                    <Image
-                        src="https://upload.wikimedia.org/wikipedia/commons/3/36/MetaMask_Fox.svg"
-                        alt="MetaMask Fox"
-                        width={25}
-                        height={25}
-                    />
-                    <h1
-                        className="mx-auto"
+            <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
+                {!address ? (
+                    <button
+                        className={`px-8 py-2 rounded-md bg-slate-400 flex flex-row items-center justify-center border border-[#1e2124] hover:border hover:border-indigo-600 shadow-md shadow-indigo-500/10`}
+                        onClick={handleConnect}
                     >
-                        {/* Connect Wallet */}
-                        {`Connect Minter`}
-                    </h1>
-                </button>
-            ) : (
-                <div className="flex items-center">
-                    {/* <input
+                        {/* Display the MetaMask Fox image */}
+                        <Image
+                            src="https://upload.wikimedia.org/wikipedia/commons/3/36/MetaMask_Fox.svg"
+                            alt="MetaMask Fox"
+                            width={25}
+                            height={25}
+                        />
+                        <h1
+                            className="mx-auto"
+                        >
+                            {/* Connect Wallet */}
+                            {`Connect Wallet`}
+                        </h1>
+                    </button>
+                ) : (
+                    <div className="flex items-center">
+
+                        <div className="grid gap-4 items-center">
+                            <div className="text-xs md:text-xs">
+                                {address} <br /> Balance: {balance}
+                            </div>
+                            {/* <input
                         type="text"
                         id="mintInput"
                         className="mx-2 border-2 border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" 
                     /> */}
-                    <button
-                        onClick={() => handleMint(address)}
-                        className="px-8 py-2 rounded bg-blue-500 text-white"
-                    >
-                        Mint NFT
-                    </button>
-                </div>
-            )}
+                            <button
+                                onClick={() => handleMint(address)}
+                                className="px-8 py-2 rounded bg-blue-500 text-white"
+                            >
+                                Mint NFT
+                            </button>
+                        </div>
+                    </div>
+
+                )}
+            </p>
         </div>
     );
 }

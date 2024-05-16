@@ -24,8 +24,6 @@ You can start editing the page by modifying `app/page.js`. The page auto-updates
 
 [**MintButton.tsx**](./src/app/components/MintButton.tsx): enables you to mint the Access Token, which enables users to unlock VIP access.
 
-[**WalletButton.tsx**](./src/app/components/WalletButton.tsx): enables you to connect your wallet and view your balance (ETH and NFT balance).
-
 <br />
 
 # Resources
