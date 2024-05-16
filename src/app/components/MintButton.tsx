@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react"
-import { ConnectPublicClient } from "@/lib/PublicClient"
+import { ConnectBlockchain } from "@/lib/BlockchainClient"
 import { ConnectWalletClient } from "@/lib/WalletClient"
 import { formatEther, getContract } from "viem"
 import { sepolia } from "viem/chains"
@@ -20,14 +20,14 @@ export default function MintButton() {
         try {
             // Instantiate a Wallet Client and a Public Client
             const walletClient = await ConnectWalletClient();
-            const publicClient = ConnectPublicClient();
+            const blockchainClient = ConnectBlockchain();
 
             const nftContract = getContract({
                 // The contract address of the NFT contract
                 address: NFT_ADDRESS,
                 abi: NFT_ABI,
                 // @ts-ignore
-                client: publicClient,
+                client: blockchainClient,
             });
             // @ts-ignore
             //   const nftOwner = await nftContract.read.owner();
@@ -45,7 +45,7 @@ export default function MintButton() {
                 account: address,
                 message,
             });
-            const valid = await publicClient.verifyMessage({
+            const valid = await blockchainClient.verifyMessage({
                 address,
                 message,
                 signature: signature,
@@ -75,7 +75,7 @@ export default function MintButton() {
             console.log("toAddress", toAddress);
             // Instantiate a Wallet Client and a Public Client
             const walletClient = await ConnectWalletClient();
-            const publicClient = ConnectPublicClient();
+            const blockchainClient = ConnectBlockchain();
             const nftContract = getContract({
                 // The contract address of the NFT contract
                 address: NFT_ADDRESS,
@@ -88,7 +88,7 @@ export default function MintButton() {
             const [address] = await walletClient.requestAddresses();
             await walletClient.switchChain({ id: sepolia.id });
             // run grantAccess
-            const { request } = await publicClient.simulateContract({
+            const { request } = await blockchainClient.simulateContract({
                 address: nftContract.address,
                 abi: nftContract.abi,
                 functionName: "grantAccess",

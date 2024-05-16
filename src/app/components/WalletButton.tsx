@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { ConnectPublicClient } from "@/lib/PublicClient"
+import { ConnectBlockchain } from "@/lib/BlockchainClient"
 import { ConnectWalletClient } from "@/lib/WalletClient"
 import { formatEther } from "viem"
 import { sepolia } from "viem/chains"
@@ -17,14 +17,14 @@ export default function WalletButton() {
       try {
         // instantiates clients: Wallet and Public.
         const walletClient = await ConnectWalletClient();
-        const publicClient = ConnectPublicClient();
+        const blockchainClient = ConnectBlockchain();
 
         // retrieves: wallet address using the Wallet Client.
         const [address] = await walletClient.requestAddresses();
         await walletClient.switchChain({ id: sepolia.id });
 
         // retrieves: balance of the address using the Public Client.
-        const balance = formatEther(await publicClient.getBalance({ address }));
+        const balance = formatEther(await blockchainClient.getBalance({ address }));
 
         // updates: state variables with the retrieved address and balance.
         setAddress(address)

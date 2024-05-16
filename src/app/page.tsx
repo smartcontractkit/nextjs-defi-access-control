@@ -1,7 +1,7 @@
 "use client"
 
 import Image from "next/image"
-import { ConnectPublicClient } from "@/lib/PublicClient"
+import { ConnectBlockchain } from "@/lib/BlockchainClient"
 import { ConnectWalletClient } from "@/lib/WalletClient"
 import { useState } from "react"
 import { formatEther, getContract } from "viem"
@@ -22,7 +22,7 @@ export default async function Home() {
       try {
         // instantiates clients: Wallet and Public.
         const walletClient = await ConnectWalletClient();
-        const publicClient = ConnectPublicClient();
+        const blockchainClient = ConnectBlockchain();
 
         // retrieves: wallet address using the Wallet Client.
         const [address] = await walletClient.requestAddresses();
@@ -33,11 +33,11 @@ export default async function Home() {
           address: NFT_ADDRESS,
           abi: NFT_ABI,
           // @ts-ignore
-          client: publicClient,
+          client: blockchainClient,
         });
 
         // retrieves: balance of the address using the Public Client.
-        const balance = formatEther(await publicClient.getBalance({ address }));
+        const balance = formatEther(await blockchainClient.getBalance({ address }));
         // updates: state variables with the retrieved address and balance.
         setAddress(address)
         setBalance(balance)
