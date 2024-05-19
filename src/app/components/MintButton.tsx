@@ -102,9 +102,9 @@ export default function MintButton() {
                         <div className="flex items-center">
 
                             <div className="grid gap-4 items-center">
-                                <div className="text-xs md:text-xs">
+                                {/* <div className="text-xs md:text-xs">
                                     {walletAddress} <br /> Balance: {balance}
-                                </div>
+                                </div> */}
                                 <button
                                     onClick={() => handleMint(walletAddress)}
                                     className="px-8 py-2 rounded bg-purple-500 text-white"
