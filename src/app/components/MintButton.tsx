@@ -85,44 +85,63 @@ export default function MintButton() {
 
     return (
         <div>
-            <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-                {!walletAddress ? (
-                    <button
-                        className={`px-8 py-2 rounded-md bg-slate-400 flex flex-row items-center justify-center border border-[#1e2124] hover:border hover:border-indigo-600 shadow-md shadow-indigo-500/10`}
-                        onClick={handleConnect}
-                    >
-                        <h1
-                            className="mx-auto"
+            <div>
+                <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
+                    {!walletAddress ? (
+                        <button
+                            className={`px-8 py-2 rounded-md bg-slate-400 flex flex-row items-center justify-center border border-[#1e2124] hover:border hover:border-indigo-600 shadow-md shadow-indigo-500/10`}
+                            onClick={handleConnect}
                         >
-                            {`Connect Wallet`}
-                        </h1>
-                    </button>
-                ) : (
-                    <div className="flex items-center">
+                            <h1
+                                className="mx-auto"
+                            >
+                                {`Connect Wallet`}
+                            </h1>
+                        </button>
+                    ) : (
+                        <div className="flex items-center">
 
-                        <div className="grid gap-4 items-center">
-                            <div className="text-xs md:text-xs">
-                                {walletAddress} <br /> Balance: {balance}
-                            </div>
-                            <button
-                                onClick={() => handleMint(walletAddress)}
-                                className="px-8 py-2 rounded bg-purple-500 text-white"
-                            >
-                                Grant Access
-                            </button>
-                            <Link
-                                href={"https://remix.ethereum.org/#url=https://github.com/BunsDev/nextjs-defi-access-control/blob/develop/src/lib/OpenAccess.sol&lang=en&optimize=false&runs=200&evmVersion=null&version=soljson-v0.8.25+commit.b61c2a91.js"}
-                                target="_blank"
-                                className="px-8 py-1 rounded bg-blue-500 text-white"
-                            >
-                                <button>
-                                    Open Code in Remix (Ethereum IDE)
+                            <div className="grid gap-4 items-center">
+                                <div className="text-xs md:text-xs">
+                                    {walletAddress} <br /> Balance: {balance}
+                                </div>
+                                <button
+                                    onClick={() => handleMint(walletAddress)}
+                                    className="px-8 py-2 rounded bg-purple-500 text-white"
+                                >
+                                    Grant Access
                                 </button>
-                            </Link>
+                                <Link
+                                    href={"https://remix.ethereum.org/#url=https://github.com/BunsDev/nextjs-defi-access-control/blob/develop/src/lib/OpenAccess.sol&lang=en&optimize=false&runs=200&evmVersion=null&version=soljson-v0.8.25+commit.b61c2a91.js"}
+                                    target="_blank"
+                                    className="px-8 py-1 rounded bg-blue-500 text-white"
+                                >
+                                    <button>
+                                        Open Code in Remix (Ethereum IDE)
+                                    </button>
+                                </Link>
+                            </div>
                         </div>
-                    </div>
+                    )}
+                </p>
+            </div>
+            <div
+                className={"flex w-full mt-24 items-center justify-center font-mono text-sm"}
+            >
+                {balance != '0' ? (
+                    <Image
+                        src={"https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNDhqN3k5ZmI0dHd4ZGFxNnhlNWkzaHZxOWR5ZmFybTB5bWFkMmhreCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/IgpsRT6FdinjrDWzNu/giphy.gif"}
+                        height={400}
+                        width={400}
+                        alt={'VIP token'} />
+                ) : (
+                    <Image
+                        src={"https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExMWUweDVkMHp1Zno0MXJvdnpmcnNycTd6bjBmdGxvc21qdGEzMDI4dCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/l1J9EdzfOSgfyueLm/giphy.gif"}
+                        height={400}
+                        width={400}
+                        alt={'Basic User'} />
                 )}
-            </p>
+            </div>
         </div>
     );
 }
