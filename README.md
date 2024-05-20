@@ -22,7 +22,10 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 ## Components
 
-[**GrantAccessButton.tsx**](./src/app/components/GrantAccessButton.tsx): enables you to mint the Access Token, which enables users to unlock VIP access.
+- [**AccessToken.tsx**](./src/app/components/AccessToken.tsx): only shows the VIP token when a user is granted access successfully.
+- [**ConnectButton.tsx**](./src/app/components/ConnectButton.tsx): enables wallet connection.
+- [**GrantAccessButton.tsx**](./src/app/components/GrantAccessButton.tsx): enables you to grant access, which unlocks VIP access.
+- [**ViewCodeButton.tsx**](./src/app/components/ViewCodeButton.tsx): redirects the user to the code that hosts the smart contract within Remix IDE for convenient deployment.
 
 ## Constants
 ### Smart Contract ABI
