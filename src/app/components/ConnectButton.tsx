@@ -22,7 +22,7 @@ export default function ConnectButton() {
             const walletClient = await ConnectWalletClient();
             const blockchainClient = ConnectBlockchain();
 
-            const nftContract = getContract({
+            const accessContract = getContract({
                 address: ACCESS_TOKEN_ADDRESS,
                 abi: ACCESS_ABI,
                 // @ts-ignore
@@ -35,11 +35,11 @@ export default function ConnectButton() {
 
             await walletClient.switchChain({ id: sepolia.id });
             // @ts-ignore
-            const nftBalance = await nftContract.read.balanceOf([address]);
-            console.log("nftBalance", nftBalance);
+            const accessTokens = await accessContract.read.balanceOf([address]);
+            console.log("accessTokens", accessTokens);
 
             setAccessGranted(
-                parseInt(nftBalance)?.toString() !== '0' ? true : false
+                parseInt(accessTokens)?.toString() !== '0' ? true : false
             );
 
         } catch (error) {

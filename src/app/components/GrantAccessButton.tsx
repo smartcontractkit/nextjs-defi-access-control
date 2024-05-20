@@ -9,7 +9,7 @@ import { ACCESS_TOKEN_ADDRESS } from "../constants/addresses"
 import { ACCESS_ABI } from "../constants/abis"
 
 export default function GrantAccessButton() {
-    // State variables to store the wallet address and balance
+    // state variables: to store the wallet address and balance.
     const [walletAddress, setWalletAddress] = useState('')
     const [accessGranted, setAccessGranted] = useState(false)
 
@@ -18,31 +18,29 @@ export default function GrantAccessButton() {
             console.log("toAddress", toAddress);
             // instantiates: Wallet Client and a Public Client.
             const walletClient = await ConnectWalletClient();
-            const nftContract = getContract({
+            const accessContract = getContract({
                 address: ACCESS_TOKEN_ADDRESS,
                 abi: ACCESS_ABI,
                 // @ts-ignore
                 client: walletClient,
             });
-            console.log("nftContract", nftContract);
+            console.log("accessContract", accessContract);
             // retrieves: wallet address using the Wallet Client.
             const [address] = await walletClient.requestAddresses();
             await setWalletAddress(address);
-            console.log('wally', walletAddress);
             await walletClient.switchChain({ id: sepolia.id });
             // @ts-ignore
-            const nftBalance = await nftContract.read.balanceOf([address]);
-            // console.log("nftBalance", nftBalance);
+            const accessTokens = await accessContract.read.balanceOf([address]);
 
             setAccessGranted(
-                parseInt(nftBalance)?.toString() !== '0' ? true : false
+                parseInt(accessTokens)?.toString() !== '0' ? true : false
             );
 
             // runs: grantAccess(address to)
             const hash = await walletClient.writeContract({
                 account: address,
-                address: nftContract.address,
-                abi: nftContract.abi,
+                address: accessContract.address,
+                abi: accessContract.abi,
                 functionName: "grantAccess",
                 args: [toAddress],
                 chain: sepolia
@@ -51,7 +49,7 @@ export default function GrantAccessButton() {
             await hash 
 
     } catch (error) {
-            // Error handling: Display an alert if the transaction fails
+            // error handling: alerts if the transaction fails (with reason).
             setAccessGranted(false)
             alert(`Transaction Failed: ${error}`);
         }
