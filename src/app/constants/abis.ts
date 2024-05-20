@@ -20,15 +20,9 @@ export const ACCESS_ABI = [
     type: "function",
   },
 
-// write: grantAccess(address to)
+// write: grantAccess()
   {
-    inputs: [
-      {
-        internalType: "address",
-        name: "to",
-        type: "address",
-      },
-    ],
+    inputs: [],
     name: "grantAccess",
     outputs: [],
     stateMutability: "nonpayable",

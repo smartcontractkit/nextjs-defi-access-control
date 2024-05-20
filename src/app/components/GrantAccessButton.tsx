@@ -9,13 +9,10 @@ import { ACCESS_TOKEN_ADDRESS } from "../constants/addresses"
 import { ACCESS_ABI } from "../constants/abis"
 
 export default function GrantAccessButton() {
-    // state variables: to store the wallet address and balance.
-    const [walletAddress, setWalletAddress] = useState('')
     const [accessGranted, setAccessGranted] = useState(false)
 
-    async function handleMint(toAddress: string) {
+    async function grantAccess() {
         try {
-            console.log("toAddress", toAddress);
             // instantiates: Wallet Client and a Public Client.
             const walletClient = await ConnectWalletClient();
             const accessContract = getContract({
@@ -27,7 +24,6 @@ export default function GrantAccessButton() {
             console.log("accessContract", accessContract);
             // retrieves: wallet address using the Wallet Client.
             const [address] = await walletClient.requestAddresses();
-            await setWalletAddress(address);
             await walletClient.switchChain({ id: sepolia.id });
             // @ts-ignore
             const accessTokens = await accessContract.read.balanceOf([address]);
@@ -42,7 +38,6 @@ export default function GrantAccessButton() {
                 address: accessContract.address,
                 abi: accessContract.abi,
                 functionName: "grantAccess",
-                args: [toAddress],
                 chain: sepolia
             });
 
@@ -57,10 +52,10 @@ export default function GrantAccessButton() {
 
     return (
         <button
-            onClick={() => handleMint(walletAddress)}
+            onClick={() => grantAccess()}
             className={accessGranted ? 'hidden' : ''}
         >
-            <div className="p-4 text-lg w-full text-center justify-center items-center flex bg-blue-700 rounded-xl text-white font-bold">
+            <div className="p-4 text-lg w-full text-center justify-center items-center flex bg-blue-700 rounded-xl text-white font-bold border-black border-8">
                 <div className="flex items-center">
                     {`Grant Access`}
                 </div>

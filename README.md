@@ -46,7 +46,7 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 ## Smart Contract
 
-**[OpenAccess.sol](https://remix.ethereum.org/#url=https://github.com/BunsDev/nextjs-defi-access-control/blob/develop/src/lib/OpenAccess.sol&lang=en&optimize=false&runs=200&evmVersion=null&version=soljson-v0.8.25+commit.b61c2a91.js)**: smart contract written in Solidity programming language that enables you to write `grantAccess(address to)` on a EVM-compatible blockchain network (e.g. Ethereum Sepolia)
+**[OpenAccess.sol](https://remix.ethereum.org/#url=https://github.com/BunsDev/nextjs-defi-access-control/blob/develop/src/lib/OpenAccess.sol&lang=en&optimize=false&runs=200&evmVersion=null&version=soljson-v0.8.25+commit.b61c2a91.js)**: smart contract written in Solidity programming language that enables you to write `grantAccess()` on a EVM-compatible blockchain network (e.g. Ethereum Sepolia)
 
 ## NextJS
 

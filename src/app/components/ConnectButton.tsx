@@ -1,7 +1,6 @@
 "use client"
 
 import React, { useState } from "react"
-import Link from "next/link"
 import { getContract } from "viem"
 import { sepolia } from "viem/chains"
 
@@ -51,23 +50,21 @@ export default function ConnectButton() {
     return (
         <div>
             <div>
-                <p
+                <button
+                    onClick={handleConnect}
                     className={
                         walletAddress ? `hidden`
-                            : "fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit"}>
-                    <button
-                        className={`px-8 py-2 rounded-md bg-slate-400 flex flex-row items-center justify-center border border-[#1e2124] hover:border hover:border-indigo-600 shadow-md shadow-indigo-500/10`}
-                        onClick={handleConnect}
+                        : `text-lg font-bold fixed left-0 top-0 flex w-full justify-center border-8 border-red-600 p-4 backdrop-blur-2xl bg-red-300 text-red-900`
+                    }
+                >
+                    <h1
+                        className="mx-auto"
                     >
-                        <h1
-                            className="mx-auto"
-                        >
-                            {`Connect Wallet`}
-                        </h1>
-                    </button>
-                </p>
+                        {`Connect Wallet`}
+                    </h1>
+                </button>
+                <AccessToken isGranted={accessGranted} />
             </div>
-            <AccessToken isGranted={accessGranted} />
         </div>
     );
 }
