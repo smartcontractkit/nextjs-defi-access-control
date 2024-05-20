@@ -8,10 +8,10 @@ import { sepolia } from "viem/chains"
 
 import { ConnectBlockchain } from "@/lib/BlockchainClient"
 import { ConnectWalletClient } from "@/lib/WalletClient"
-import { NFT_ADDRESS } from "../constants/addresses"
-import { NFT_ABI } from "../constants/abis"
+import { ACCESS_TOKEN_ADDRESS } from "../constants/addresses"
+import { ACCESS_ABI } from "../constants/abis"
 
-export default function MintButton() {
+export default function GrantAccessButton() {
     // State variables to store the wallet address and balance
     const [walletAddress, setWalletAddress] = useState('')
     const [balance, setBalance] = useState('0')
@@ -24,8 +24,8 @@ export default function MintButton() {
 
             const nftContract = getContract({
                 // The contract address of the NFT contract
-                address: NFT_ADDRESS,
-                abi: NFT_ABI,
+                address: ACCESS_TOKEN_ADDRESS,
+                abi: ACCESS_ABI,
                 // @ts-ignore
                 client: blockchainClient,
             });
@@ -56,8 +56,8 @@ export default function MintButton() {
             const walletClient = await ConnectWalletClient();
             const nftContract = getContract({
                 // The contract address of the NFT contract
-                address: NFT_ADDRESS,
-                abi: NFT_ABI,
+                address: ACCESS_TOKEN_ADDRESS,
+                abi: ACCESS_ABI,
                 // @ts-ignore
                 client: walletClient,
             });

@@ -22,7 +22,7 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 ## Components
 
-[**MintButton.tsx**](./src/app/components/MintButton.tsx): enables you to mint the Access Token, which enables users to unlock VIP access.
+[**GrantAccessButton.tsx**](./src/app/components/GrantAccessButton.tsx): enables you to mint the Access Token, which enables users to unlock VIP access.
 
 ## Constants
 ### Smart Contract ABI
