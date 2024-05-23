@@ -2,7 +2,7 @@
 const nextConfig = {
     images: {
         domains: [
-            'media.giphy.com'
+            'media.giphy.com',
         ]
     }
 };
