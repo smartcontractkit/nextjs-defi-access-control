@@ -7,7 +7,6 @@ import { sepolia } from "viem/chains";
 import { ConnectWalletClient } from "@/lib/WalletClient";
 import { ACCESS_ABI } from "../constants/abis";
 import AccessControlledView from "./AccessControlledView";
-import { ConnectBlockchain } from "@/lib/BlockchainClient";
 
 export default function GrantAccessView() {
   const [accessGranted, setAccessGranted] = useState(false);
@@ -20,13 +19,12 @@ export default function GrantAccessView() {
     try {
       // instantiates: Wallet Client and Public Client
       const walletClient = await ConnectWalletClient();
-      const blockchainClient = ConnectBlockchain();
 
       const accessControlContract = getContract({
         address: ACCESS_TOKEN_ADDRESS as `0x${string}`,
         abi: ACCESS_ABI,
         // @ts-ignore
-        client: blockchainClient,
+        client: walletClient,
       });
       // retrieves: your wallet address using the Wallet Client.
       const [myAddress] = await walletClient.requestAddresses();
