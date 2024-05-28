@@ -5,7 +5,6 @@ import { getContract } from "viem";
 import { sepolia } from "viem/chains";
 
 import { ConnectWalletClient } from "@/lib/WalletClient";
-import { ACCESS_TOKEN_ADDRESS } from "../constants/addresses";
 import { ACCESS_ABI } from "../constants/abis";
 import AccessControlledView from "./AccessControlledView";
 import { ConnectBlockchain } from "@/lib/BlockchainClient";
@@ -15,6 +14,8 @@ export default function GrantAccessView() {
   const [walletConnected, setWalletConnected] = useState(false);
   const [walletAddress, setWalletAddress] = useState('');
 
+  const ACCESS_TOKEN_ADDRESS = process.env.NEXT_PUBLIC_ACCESS_TOKEN_ADDRESS ?? '0xa8d3d48C41C2f0Cd37B3eb303a90A7841E15E6f4'
+
   async function handleConnect() {
     try {
       // instantiates: Wallet Client and Public Client
@@ -22,7 +23,7 @@ export default function GrantAccessView() {
       const blockchainClient = ConnectBlockchain();
 
       const accessControlContract = getContract({
-        address: ACCESS_TOKEN_ADDRESS,
+        address: ACCESS_TOKEN_ADDRESS as `0x${string}`,
         abi: ACCESS_ABI,
         // @ts-ignore
         client: blockchainClient,
@@ -50,7 +51,7 @@ export default function GrantAccessView() {
       // instantiates: Wallet Client.
       const walletClient = await ConnectWalletClient();
       const accessControlContract = getContract({
-        address: ACCESS_TOKEN_ADDRESS,
+        address: ACCESS_TOKEN_ADDRESS as `0x${string}`,
         abi: ACCESS_ABI,
         // @ts-ignore
         client: walletClient,
