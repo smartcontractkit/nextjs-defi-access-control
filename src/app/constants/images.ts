@@ -1,0 +1,2 @@
+export const BASIC_IMAGE_URL = "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExMWUweDVkMHp1Zno0MXJvdnpmcnNycTd6bjBmdGxvc21qdGEzMDI4dCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/l1J9EdzfOSgfyueLm/giphy.gif"
+export const VIP_IMAGE_URL = "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNDhqN3k5ZmI0dHd4ZGFxNnhlNWkzaHZxOWR5ZmFybTB5bWFkMmhreCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/IgpsRT6FdinjrDWzNu/giphy.gif"
