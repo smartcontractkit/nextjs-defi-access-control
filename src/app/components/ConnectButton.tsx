@@ -8,7 +8,7 @@ import { ConnectBlockchain } from "@/lib/BlockchainClient"
 import { ConnectWalletClient } from "@/lib/WalletClient"
 import { ACCESS_TOKEN_ADDRESS } from "../constants/addresses"
 import { ACCESS_ABI } from "../constants/abis"
-import AccessToken from "./AccessToken"
+import AccessToken from "./AccessControlledView"
 
 export default function ConnectButton() {
     // State variables to store the wallet address and balance
