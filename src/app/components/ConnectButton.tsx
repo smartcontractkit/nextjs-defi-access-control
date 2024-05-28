@@ -11,17 +11,17 @@ import { ACCESS_ABI } from "../constants/abis"
 import AccessToken from "./AccessControlledView"
 
 export default function ConnectButton() {
-    // State variables to store the wallet address and balance
+    // stores: the wallet address and balance
     const [walletAddress, setWalletAddress] = useState('')
     const [accessGranted, setAccessGranted] = useState(false)
 
     async function handleConnect() {
         try {
-            // instantiates: a Wallet Client and a Public Client
+            // instantiates: Wallet Client and Public Client
             const walletClient = await ConnectWalletClient();
             const blockchainClient = ConnectBlockchain();
 
-            const accessControlContract = getContract({ // TODO @BunsDev: renaming as "accessContract" could be interpreted as accessing a contract (verb) instead of a reference to the contract (noun)
+            const accessControlContract = getContract({
                 address: ACCESS_TOKEN_ADDRESS,
                 abi: ACCESS_ABI,
                 // @ts-ignore
@@ -42,7 +42,7 @@ export default function ConnectButton() {
             );
 
         } catch (error) {
-            // error handling: Display an alert if the transaction fails.
+            // error displays: alert if the transaction fails.
             alert(`Transaction Failed: ${error}`);
         }
     }
