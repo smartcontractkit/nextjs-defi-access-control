@@ -7,6 +7,8 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Getting Started
 
+TODO @BunsDev - perhaps link to Metamask installation portion of https://docs.chain.link/quickstarts/deploy-your-first-contract?
+
 Run the dev server:
 
 ```bash
@@ -28,16 +30,16 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 ## Components
 
 - [**AccessToken.tsx**](./src/app/components/AccessToken.tsx): only shows the VIP token when a user is granted access successfully.
-- [**ConnectButton.tsx**](./src/app/components/ConnectButton.tsx): enables wallet connection.
-- [**GrantAccessButton.tsx**](./src/app/components/GrantAccessButton.tsx): enables you to grant access, which unlocks VIP access.
-- [**ViewCodeButton.tsx**](./src/app/components/ViewCodeButton.tsx): redirects the user to the code that hosts the smart contract within Remix IDE for convenient deployment.
+- [**ConnectButton.tsx**](./src/app/components/ConnectButton.tsx): connects your wallet to the blockchain for read/write functionality.
+- [**GrantAccessButton.tsx**](./src/app/components/GrantAccessButton.tsx): enables you to grant access to the Access Control Token, which unlocks VIP access.
+- [**ViewCodeButton.tsx**](./src/app/components/ViewCodeButton.tsx): redirects the user to the [smart contract code](#smart-contract) prepopulated within the Remix browser IDE for convenient deployment.
 
 ## Constants
 ### Smart Contract ABI
 - **Location**: [constants/abis.ts](/src/app/constants/abis.ts)
 - **Stores**: the Application Binary Interface (ABI) for our AccessToken smart contract.
-- **ABIs**: inform the blockchain how to treat each of its functions.
-    - `balanceOf(account)`: reads the balance of the connected wallet address.
+- **ABIs**: interface that permits programmatic interaction with smart contract bytecode deployed to a blockchain.
+    - `balanceOf(account)`: reads the balance of the provided wallet address.
     - `grantAccess(to)`: writes the address of the user we want to grant access to.
 
 ### Smart Contract Address
@@ -51,9 +53,11 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 ## Smart Contract
 
-**[OpenAccess.sol](https://remix.ethereum.org/#url=https://github.com/BunsDev/nextjs-defi-access-control/blob/develop/src/lib/OpenAccess.sol&lang=en&optimize=false&runs=200&evmVersion=null&version=soljson-v0.8.25+commit.b61c2a91.js)**: smart contract written in Solidity programming language that enables you to write `grantAccess()` on a EVM-compatible blockchain network (e.g. Ethereum Sepolia)
+**[OpenAccess.sol](https://remix.ethereum.org/#url=https://github.com/BunsDev/nextjs-defi-access-control/blob/develop/src/lib/OpenAccess.sol&lang=en&optimize=false&runs=200&evmVersion=null&version=soljson-v0.8.25+commit.b61c2a91.js)**: smart contract written in Solidity programming language that enables you to call `grantAccess()` on a EVM-compatible blockchain network (e.g. Ethereum Sepolia)
 
 ## NextJS
+
+<!-- TODO @BunsDev I think this and the vercel stuff can be removed.  Maybe add the same links @rgottleber has at the end of the preso here? -->
 
 To learn more about Next.js, take a look at the following resources:
 
