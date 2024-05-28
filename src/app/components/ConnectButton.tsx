@@ -21,20 +21,20 @@ export default function ConnectButton() {
             const walletClient = await ConnectWalletClient();
             const blockchainClient = ConnectBlockchain();
 
-            const accessContract = getContract({
+            const accessControlContract = getContract({ // TODO @BunsDev: renaming as "accessContract" could be interpreted as accessing a contract (verb) instead of a reference to the contract (noun)
                 address: ACCESS_TOKEN_ADDRESS,
                 abi: ACCESS_ABI,
                 // @ts-ignore
                 client: blockchainClient,
             });
-            // retrieves: wallet address using the Wallet Client.
+            // retrieves: your wallet address using the Wallet Client.
             const [address] = await walletClient.requestAddresses();
-            // updates: the state variables with the retrieved address and balance.
+            // updates: the state variables with the retrieved address.
             setWalletAddress(address);
 
             await walletClient.switchChain({ id: sepolia.id });
             // @ts-ignore
-            const accessTokens = await accessContract.read.balanceOf([address]);
+            const accessTokens = await accessControlContract.read.balanceOf([address]);
             console.log("accessTokens", accessTokens);
 
             setAccessGranted(

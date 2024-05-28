@@ -1,6 +1,7 @@
 import Link from "next/link"
 
 export default function ViewCodeButton() {
+    // TODO @BunsDev please update github url to SCK.
     return (
         <Link
             href={"https://remix.ethereum.org/#url=https://github.com/BunsDev/nextjs-defi-access-control/blob/develop/src/lib/OpenAccess.sol&lang=en&optimize=false&runs=200&evmVersion=null&version=soljson-v0.8.25+commit.b61c2a91.js"}
