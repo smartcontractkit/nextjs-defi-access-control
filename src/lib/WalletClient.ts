@@ -18,6 +18,8 @@ export async function ConnectWalletClient() {
   /*/ Wallet Client /*/
 
   // creates: wallet client using the Sepolia chain and the custom transport.
+  // wallet client: provides access to Wallet Actions, such as sendTransaction and signMessage (this requires a wallet to be connected).
+  // see viem documentation for more details: https://viem.sh/docs/clients/wallet.html
   const walletClient = createWalletClient({
     chain: sepolia,
     transport: transport,
