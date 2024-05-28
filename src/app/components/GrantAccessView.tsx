@@ -57,20 +57,18 @@ export default function GrantAccessView() {
       });
       console.log("accessControlContract", accessControlContract);
       // retrieves: your wallet address using the Wallet Client.
-      //TODO @BunsDev since in line 34 the writeContract API is kinda confusing between "account" and "address" etc, should we disambiguate by calling this address "myAddress" or "myWalletAddress" ?
-      const [walletAddress] = await walletClient.requestAddresses();
+      const [myAddress] = await walletClient.requestAddresses();
 
       await walletClient.switchChain({ id: sepolia.id });
 
       // @ts-ignore
-      const accessTokens = await accessControlContract.read.balanceOf([walletAddress]);
+      const accessTokens = await accessControlContract.read.balanceOf([myAddress]);
 
       setAccessGranted(parseInt(accessTokens)?.toString() !== "0" ? true : false);
 
-
       // runs: grantAccess()
       const txHash = await walletClient.writeContract({
-        account: walletAddress,
+        account: myAddress,
         address: accessControlContract.address,
         abi: accessControlContract.abi,
         functionName: "grantAccess",
@@ -86,9 +84,6 @@ export default function GrantAccessView() {
   }
 
   return (
-    // TODO @BunsDev won't we need to await the grantAccess function to complete before we can set the accessGranted state?
-    // Also currently its not showing hidden when i fire up the app. And i can click + transact and no UI change.
-    // Needs to only show once wallet connected && accessGranted is false.
     <div
       className="p-6 text-lg w-full text-center justify-center items-center grid bg-black rounded-xl text-white font-bold">
       {!walletConnected &&
