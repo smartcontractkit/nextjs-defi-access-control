@@ -7,6 +7,8 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Getting Started
 
+TODO @BunsDev - perhaps link to Metamask installation portion of https://docs.chain.link/quickstarts/deploy-your-first-contract?
+
 Run the dev server:
 
 ```bash
@@ -28,22 +30,21 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 ## Components
 
 - [**AccessToken.tsx**](./src/app/components/AccessToken.tsx): only shows the VIP token when a user is granted access successfully.
-- [**ConnectButton.tsx**](./src/app/components/ConnectButton.tsx): enables wallet connection.
-- [**GrantAccessButton.tsx**](./src/app/components/GrantAccessButton.tsx): enables you to grant access, which unlocks VIP access.
-- [**ViewCodeButton.tsx**](./src/app/components/ViewCodeButton.tsx): redirects the user to the code that hosts the smart contract within Remix IDE for convenient deployment.
+- [**ConnectButton.tsx**](./src/app/components/ConnectButton.tsx): connects your wallet to the blockchain for read/write functionality.
+- [**GrantAccessButton.tsx**](./src/app/components/GrantAccessButton.tsx): enables you to grant access to the Access Control Token, which unlocks VIP access.
+- [**ViewCodeButton.tsx**](./src/app/components/ViewCodeButton.tsx): redirects the user to the [smart contract code](#smart-contract) prepopulated within the Remix browser IDE for convenient deployment.
 
 ## Constants
 ### Smart Contract ABI
 - **Location**: [constants/abis.ts](/src/app/constants/abis.ts)
 - **Stores**: the Application Binary Interface (ABI) for our AccessToken smart contract.
-- **ABIs**: inform the blockchain how to treat each of its functions.
-    - `balanceOf(account)`: reads the balance of the connected wallet address.
-    - `grantAccess(to)`: writes the address of the user we want to grant access to.
+- **ABIs**: interface that permits programmatic interaction with smart contract bytecode deployed to a blockchain.
+    - `balanceOf(account)`: reads the balance of the provided wallet address.
+    - `grantAccess()`: grants access to the connect wallet address (write function).
 
-### Smart Contract Address
-- **Location**: [constants/addresses.ts](/src/app/constants/addresses.ts)
-- **Stores**: the address for our deployed Access Token smart contract.
-
+### Images
+- **Location**: [constants/images.ts](/src/app/constants/images.ts)
+- **Stores**: the images we use to indicate whether (or not) a given user has access granted.
 
 <br />
 
@@ -51,22 +52,12 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 ## Smart Contract
 
-**[OpenAccess.sol](https://remix.ethereum.org/#url=https://github.com/BunsDev/nextjs-defi-access-control/blob/develop/src/lib/OpenAccess.sol&lang=en&optimize=false&runs=200&evmVersion=null&version=soljson-v0.8.25+commit.b61c2a91.js)**: smart contract written in Solidity programming language that enables you to write `grantAccess()` on a EVM-compatible blockchain network (e.g. Ethereum Sepolia)
+**[OpenAccess.sol](https://remix.ethereum.org/#url=https://github.com/SmartContractKit/nextjs-defi-access-control/blob/main/src/lib/OpenAccess.sol&lang=en&optimize=false&runs=200&evmVersion=null&version=soljson-v0.8.25+commit.b61c2a91.js)**: smart contract written in Solidity programming language that enables you to call `grantAccess()` on a EVM-compatible blockchain network (e.g. Ethereum Sepolia)
 
-## NextJS
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-> This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Vercel Preview
+View the latest version of this repository live on Vercel at https://nextjs-defi-access-control.vercel.app/ 
 
 
-## Vercel Deployment
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Contact Chainlink Labs
+- **Discord**: http://chn.lk/chainlink-discord
+- **Documentation**: http://docs.chain.link
