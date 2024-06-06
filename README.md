@@ -7,7 +7,7 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Getting Started
 
-TODO @BunsDev - perhaps link to Metamask installation portion of https://docs.chain.link/quickstarts/deploy-your-first-contract?
+If you are new to wallets, please setup your wallet using these notes: [https://docs.chain.link/quickstarts/deploy-your-first-contract](https://docs.chain.link/quickstarts/deploy-your-first-contract)
 
 Run the dev server:
 
